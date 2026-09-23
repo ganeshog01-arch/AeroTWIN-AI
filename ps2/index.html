@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AeroTwin Mission Health</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+          </div>
+          <div>
+            <h1>AeroTwin</h1>
+            <p>Mission Health</p>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Primary navigation">
+          <a class="nav-item active" href="#dashboard" data-section="dashboard">
+            <span class="nav-icon">H</span>
+            Dashboard
+          </a>
+          <a class="nav-item" href="#simulation" data-section="simulation">
+            <span class="nav-icon">A</span>
+            Mission Simulation
+          </a>
+          <a class="nav-item" href="#digital-twin" data-section="digital-twin">
+            <span class="nav-icon">D</span>
+            Digital Twin
+          </a>
+          <a class="nav-item" href="#engine-model" data-section="engine-model">
+            <span class="nav-icon">M</span>
+            Engine Model
+          </a>
+          <a class="nav-item" href="#analytics" data-section="analytics">
+            <span class="nav-icon">AI</span>
+            AI/ML Analytics
+          </a>
+          <a class="nav-item" href="#history" data-section="history">
+            <span class="nav-icon">T</span>
+            Historical Data
+          </a>
+          <a class="nav-item" href="#reports" data-section="reports">
+            <span class="nav-icon">R</span>
+            Reports
+          </a>
+          <a class="nav-item" href="#settings" data-section="settings">
+            <span class="nav-icon">S</span>
+            Settings
+          </a>
+        </nav>
+
+        <div class="mission-photo" aria-hidden="true">
+          <div class="uav-silhouette"></div>
+          <p>Safer Engines<br />Longer Missions<br />A Stronger Tomorrow</p>
+        </div>
+      </aside>
+
+      <main class="main-content" id="dashboard">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">RESEARCH PROTOTYPE - SIMULATED ENGINE DATA</p>
+            <h2>Digital Twin System for Aero Piston Engines</h2>
+            <p>Monitor &middot; Predict &middot; Simulate &middot; Ensure Mission Reliability</p>
+          </div>
+
+          <div class="header-actions">
+            <span class="status-pill"><span></span>System Online</span>
+            <time id="clock" datetime="">--</time>
+            <button class="icon-button" id="streamToggle" type="button" aria-label="Pause live stream" title="Pause live stream">II</button>
+            <div class="profile-chip" title="Operator profile">
+              <span>GP</span>
+              Ganesh Pai
+            </div>
+          </div>
+        </header>
+
+        <section class="kpi-grid" aria-label="Current simulated telemetry">
+          <article class="kpi-card healthy" data-kpi="rpm">
+            <span class="kpi-icon">RPM</span>
+            <div>
+              <p>RPM</p>
+              <strong><span id="kpiRpm">2450</span> <small>rpm</small></strong>
+              <em id="rpmTrend">Stable</em>
+            </div>
+          </article>
+          <article class="kpi-card warning" data-kpi="cht">
+            <span class="kpi-icon">CHT</span>
+            <div>
+              <p>CHT</p>
+              <strong><span id="kpiCht">182</span> <small>&deg;C</small></strong>
+              <em id="chtTrend">Thermal watch</em>
+            </div>
+          </article>
+          <article class="kpi-card warning" data-kpi="egt">
+            <span class="kpi-icon">EGT</span>
+            <div>
+              <p>EGT</p>
+              <strong><span id="kpiEgt">735</span> <small>&deg;C</small></strong>
+              <em id="egtTrend">Elevated</em>
+            </div>
+          </article>
+          <article class="kpi-card healthy" data-kpi="oil">
+            <span class="kpi-icon">OIL</span>
+            <div>
+              <p>Oil Pressure</p>
+              <strong><span id="kpiOil">4.2</span> <small>bar</small></strong>
+              <em>Nominal</em>
+            </div>
+          </article>
+          <article class="kpi-card neutral" data-kpi="fuel">
+            <span class="kpi-icon">FUEL</span>
+            <div>
+              <p>Fuel Flow</p>
+              <strong><span id="kpiFuel">12.5</span> <small>L/hr</small></strong>
+              <em id="fuelTrend">Load coupled</em>
+            </div>
+          </article>
+          <article class="kpi-card healthy" data-kpi="vibe">
+            <span class="kpi-icon">VIB</span>
+            <div>
+              <p>Vibration</p>
+              <strong><span id="kpiVibration">0.8</span> <small>g</small></strong>
+              <em id="vibrationTrend">Within limit</em>
+            </div>
+          </article>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="panel engine-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Virtual Engine - Real Time Simulation</h3>
+                <p>PROTOTYPE DATA &middot; Client-side digital twin stream</p>
+              </div>
+              <div class="segmented-control" role="group" aria-label="Engine view mode">
+                <button class="active" type="button" data-view="cutaway">Cutaway View</button>
+                <button type="button" data-view="external">External View</button>
+              </div>
+            </div>
+
+            <div class="engine-stage" id="engineStage">
+              <svg class="engine-svg" viewBox="0 0 860 420" role="img" aria-label="Schematic aero piston engine with sensor callouts">
+                <defs>
+                  <linearGradient id="metal" x1="0" x2="1">
+                    <stop offset="0" stop-color="#26313b" />
+                    <stop offset="0.52" stop-color="#c2d0d8" />
+                    <stop offset="1" stop-color="#303943" />
+                  </linearGradient>
+                  <radialGradient id="heatGlow">
+                    <stop offset="0" stop-color="#ffed91" />
+                    <stop offset="0.45" stop-color="#ff6b2a" />
+                    <stop offset="1" stop-color="#5b160d" stop-opacity="0" />
+                  </radialGradient>
+                  <radialGradient id="sparkGlow">
+                    <stop offset="0" stop-color="#ffffff" />
+                    <stop offset="0.35" stop-color="#ffe46b" />
+                    <stop offset="1" stop-color="#ff5b2c" stop-opacity="0" />
+                  </radialGradient>
+                </defs>
+
+                <g class="propeller">
+                  <ellipse cx="106" cy="209" rx="64" ry="174" fill="#4e7189" opacity="0.12" />
+                  <g class="propeller-rotor">
+                    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 106 209" to="360 106 209" dur="1.7s" repeatCount="indefinite" />
+                    <path d="M100 202 C70 86 82 20 118 10 C145 90 130 155 112 202 Z" fill="url(#metal)" />
+                    <path d="M111 215 C142 332 130 400 94 410 C68 332 80 265 101 214 Z" fill="url(#metal)" />
+                  </g>
+                  <ellipse cx="105" cy="205" rx="28" ry="50" fill="#111a22" stroke="#5f7c96" />
+                  <circle cx="106" cy="209" r="24" fill="#0a1118" stroke="#9fb7c7" />
+                </g>
+
+                <g class="engine-body">
+                  <rect x="198" y="142" width="468" height="154" rx="42" fill="#1d2730" stroke="#7d8c96" />
+                  <rect x="250" y="122" width="330" height="55" rx="18" fill="url(#metal)" opacity="0.9" />
+                  <rect x="260" y="264" width="332" height="52" rx="20" fill="#58626c" opacity="0.78" />
+                  <path class="cutaway-layer" d="M330 165 H622 C650 190 654 250 625 282 H333 C360 248 361 197 330 165 Z" fill="#160d0b" stroke="#ff6a2d" stroke-width="2" />
+                  <ellipse class="heat-pulse" cx="459" cy="224" rx="68" ry="76" fill="url(#heatGlow)" />
+                  <g class="flow-paths" aria-hidden="true">
+                    <path id="intakeFlowPath" d="M190 186 C225 174 232 255 190 246" fill="none" />
+                    <path id="exhaustFlowPath" d="M610 160 C680 152 732 180 738 222 C742 265 688 286 626 276" fill="none" />
+                    <path id="oilFlowPath" d="M305 302 C372 330 508 330 590 296" fill="none" />
+                  </g>
+                  <g class="cylinders" fill="url(#metal)" stroke="#0f151b">
+                    <rect x="318" y="90" width="40" height="100" rx="12" />
+                    <rect x="374" y="84" width="40" height="104" rx="12" />
+                    <rect x="430" y="78" width="40" height="112" rx="12" />
+                    <rect x="486" y="84" width="40" height="104" rx="12" />
+                    <rect x="542" y="90" width="40" height="100" rx="12" />
+                  </g>
+                  <g class="working-cycle">
+                    <g class="valves" stroke-width="5" stroke-linecap="round">
+                      <g stroke="#39d6ff">
+                        <line x1="384" y1="146" x2="400" y2="169">
+                          <animateTransform attributeName="transform" type="translate" values="0 0;0 7;0 0;0 0" dur="1.35s" repeatCount="indefinite" />
+                        </line>
+                        <line x1="456" y1="142" x2="470" y2="168">
+                          <animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 7;0 0" dur="1.35s" repeatCount="indefinite" />
+                        </line>
+                      </g>
+                      <g stroke="#ff8d38">
+                        <line x1="498" y1="142" x2="484" y2="168">
+                          <animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 0;0 7;0 0" dur="1.35s" repeatCount="indefinite" />
+                        </line>
+                        <line x1="570" y1="146" x2="552" y2="169">
+                          <animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 7;0 0;0 0" dur="1.35s" repeatCount="indefinite" />
+                        </line>
+                      </g>
+                    </g>
+                    <g class="spark-plug">
+                      <path d="M458 118 V166" stroke="#d7e8f4" stroke-width="4" stroke-linecap="round" />
+                      <circle cx="458" cy="176" r="8" fill="url(#sparkGlow)">
+                        <animate attributeName="opacity" values="0;0;1;0;0;0" keyTimes="0;0.36;0.4;0.47;0.7;1" dur="1.35s" repeatCount="indefinite" />
+                        <animate attributeName="r" values="4;4;28;8;4" dur="1.35s" repeatCount="indefinite" />
+                      </circle>
+                    </g>
+                    <g class="injector-spray" stroke="#b070ff" stroke-width="2" stroke-linecap="round">
+                      <path d="M340 133 L421 196">
+                        <animate attributeName="opacity" values="0.15;1;0.2;0.15" dur="1.35s" repeatCount="indefinite" />
+                      </path>
+                      <path d="M348 138 L434 205">
+                        <animate attributeName="opacity" values="0.1;0.8;0.15;0.1" dur="1.35s" begin="0.16s" repeatCount="indefinite" />
+                      </path>
+                      <path d="M356 143 L446 212">
+                        <animate attributeName="opacity" values="0.1;0.8;0.15;0.1" dur="1.35s" begin="0.28s" repeatCount="indefinite" />
+                      </path>
+                    </g>
+                    <g class="pistons" fill="#111820" stroke="#98a7b1">
+                      <g>
+                        <animateTransform attributeName="transform" type="translate" values="0 12;0 -14;0 12" dur="1.35s" repeatCount="indefinite" />
+                        <rect x="382" y="190" width="42" height="72" rx="9" />
+                        <line x1="403" y1="262" x2="430" y2="306" stroke="#adbdc7" stroke-width="5" />
+                      </g>
+                      <g>
+                        <animateTransform attributeName="transform" type="translate" values="0 -10;0 14;0 -10" dur="1.35s" repeatCount="indefinite" />
+                        <rect x="454" y="188" width="42" height="76" rx="9" />
+                        <line x1="475" y1="264" x2="468" y2="306" stroke="#adbdc7" stroke-width="5" />
+                      </g>
+                      <g>
+                        <animateTransform attributeName="transform" type="translate" values="0 8;0 -16;0 8" dur="1.35s" begin="0.18s" repeatCount="indefinite" />
+                        <rect x="526" y="190" width="42" height="72" rx="9" />
+                        <line x1="547" y1="262" x2="506" y2="306" stroke="#adbdc7" stroke-width="5" />
+                      </g>
+                    </g>
+                    <g class="crankshaft">
+                      <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 468 306" to="360 468 306" dur="1.35s" repeatCount="indefinite" />
+                      <circle cx="468" cy="306" r="24" fill="none" stroke="#d7dce0" stroke-width="6" />
+                      <circle cx="468" cy="282" r="5" fill="#d7dce0" />
+                      <circle cx="489" cy="318" r="5" fill="#d7dce0" />
+                      <circle cx="447" cy="318" r="5" fill="#d7dce0" />
+                    </g>
+                  </g>
+                  <path d="M190 186 C225 174 232 255 190 246" fill="none" stroke="#9aa76f" stroke-width="15" />
+                  <path d="M610 160 C680 152 732 180 738 222 C742 265 688 286 626 276" fill="none" stroke="#9a3422" stroke-width="16" />
+                  <circle cx="675" cy="220" r="44" fill="none" stroke="#d7dce0" stroke-width="18" opacity="0.72" />
+                  <g class="engine-flow-particles" aria-hidden="true">
+                    <circle r="5" fill="#39d6ff">
+                      <animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#intakeFlowPath" /></animateMotion>
+                      <animate attributeName="opacity" values="0;1;0" dur="1.6s" repeatCount="indefinite" />
+                    </circle>
+                    <circle r="4" fill="#39d6ff">
+                      <animateMotion dur="1.6s" begin="0.55s" repeatCount="indefinite"><mpath href="#intakeFlowPath" /></animateMotion>
+                      <animate attributeName="opacity" values="0;0.8;0" dur="1.6s" begin="0.55s" repeatCount="indefinite" />
+                    </circle>
+                    <circle r="5" fill="#ff8d38">
+                      <animateMotion dur="1.45s" repeatCount="indefinite"><mpath href="#exhaustFlowPath" /></animateMotion>
+                      <animate attributeName="opacity" values="0;1;0" dur="1.45s" repeatCount="indefinite" />
+                    </circle>
+                    <circle r="4" fill="#ff8d38">
+                      <animateMotion dur="1.45s" begin="0.48s" repeatCount="indefinite"><mpath href="#exhaustFlowPath" /></animateMotion>
+                      <animate attributeName="opacity" values="0;0.85;0" dur="1.45s" begin="0.48s" repeatCount="indefinite" />
+                    </circle>
+                    <circle r="4" fill="#31e486">
+                      <animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#oilFlowPath" /></animateMotion>
+                      <animate attributeName="opacity" values="0;0.9;0" dur="2.2s" repeatCount="indefinite" />
+                    </circle>
+                  </g>
+                  <g class="cycle-captions" font-size="11" font-weight="700">
+                    <text x="226" y="177" fill="#39d6ff">INTAKE CHARGE</text>
+                    <text x="624" y="151" fill="#ff8d38">EXHAUST PULSE</text>
+                    <text x="418" y="153" fill="#ffe46b">SPARK</text>
+                    <text x="370" y="330" fill="#31e486">OIL FLOW</text>
+                  </g>
+                </g>
+
+                <g class="callout blue">
+                  <path d="M208 297 L158 342 H98" />
+                  <circle cx="208" cy="297" r="7" />
+                  <foreignObject x="14" y="320" width="104" height="54"><div class="svg-label">RPM<br /><b id="calloutRpm">2450</b></div></foreignObject>
+                </g>
+                <g class="callout purple">
+                  <path d="M332 126 L305 60 H204" />
+                  <circle cx="332" cy="126" r="7" />
+                  <foreignObject x="122" y="38" width="116" height="64"><div class="svg-label">Fuel Injector<br /><b id="calloutFuel">12.5 L/hr</b></div></foreignObject>
+                </g>
+                <g class="callout red">
+                  <path d="M444 106 L444 42 H504" />
+                  <circle cx="444" cy="106" r="7" />
+                  <foreignObject x="472" y="8" width="140" height="66"><div class="svg-label">Cylinder Head Temp<br /><b id="calloutCht">182 &deg;C</b></div></foreignObject>
+                </g>
+                <g class="callout amber">
+                  <path d="M664 184 L704 128 H775" />
+                  <circle cx="664" cy="184" r="7" />
+                  <foreignObject x="704" y="104" width="140" height="66"><div class="svg-label">Exhaust Gas Temp<br /><b id="calloutEgt">735 &deg;C</b></div></foreignObject>
+                </g>
+                <g class="callout green">
+                  <path d="M410 318 L410 366 H455" />
+                  <circle cx="410" cy="318" r="7" />
+                  <foreignObject x="435" y="338" width="112" height="58"><div class="svg-label">Oil Pressure<br /><b id="calloutOil">4.2 bar</b></div></foreignObject>
+                </g>
+                <g class="callout cyan">
+                  <path d="M618 298 L660 352 H718" />
+                  <circle cx="618" cy="298" r="7" />
+                  <foreignObject x="690" y="330" width="110" height="58"><div class="svg-label">Vibration<br /><b id="calloutVibe">0.8 g</b></div></foreignObject>
+                </g>
+              </svg>
+
+              <aside class="engine-params">
+                <h4>Engine Parameters</h4>
+                <dl id="engineParamList"></dl>
+              </aside>
+            </div>
+          </article>
+
+          <aside class="right-rail">
+            <article class="panel health-panel">
+              <div class="panel-heading compact">
+                <h3>Engine Health Status</h3>
+                <p>SIMULATED TELEMETRY</p>
+              </div>
+              <div class="health-layout">
+                <div class="gauge" style="--score:82">
+                  <svg viewBox="0 0 160 100" aria-hidden="true">
+                    <path class="gauge-bg" d="M20 82 A60 60 0 0 1 140 82" />
+                    <path class="gauge-fg" id="healthArc" d="M20 82 A60 60 0 0 1 140 82" />
+                  </svg>
+                  <strong><span id="healthIndex">82</span>%</strong>
+                  <em id="healthLabel">Good</em>
+                </div>
+                <ul class="status-list" id="subsystemList"></ul>
+              </div>
+            </article>
+
+            <article class="panel advisory-panel" id="analytics">
+              <div class="panel-heading compact">
+                <h3>AI Prediction & Advisory</h3>
+                <p>Prototype AI Prediction</p>
+              </div>
+              <dl class="advisory-list">
+                <dt>Predicted RUL</dt>
+                <dd><span id="advisoryRul">96</span> hours</dd>
+                <dt>Detected Risk</dt>
+                <dd id="advisoryRisk">Increasing thermal stress</dd>
+                <dt>Probable Cause</dt>
+                <dd id="advisoryCause">Prolonged high-load operation</dd>
+                <dt>Recommendation</dt>
+                <dd id="advisoryRecommendation">Inspect cooling system and injector condition.</dd>
+              </dl>
+            </article>
+          </aside>
+        </section>
+
+        <section class="lower-grid">
+          <article class="panel chart-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Engine Parameter Trends</h3>
+                <p>Auto-scaled telemetry curves; hover for actual values</p>
+              </div>
+              <div class="chart-controls">
+                <select id="rangeSelect" aria-label="Trend range">
+                  <option value="30">Last 30 min</option>
+                  <option value="60">Last 1 hour</option>
+                </select>
+                <button class="ghost-button" type="button" id="resetZoom">Reset</button>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="trendChart" width="980" height="310"></canvas>
+              <div class="tooltip" id="chartTooltip" hidden></div>
+            </div>
+            <div class="legend" id="chartLegend"></div>
+          </article>
+
+          <article class="panel sim-panel" id="simulation">
+            <div class="panel-heading compact">
+              <h3>Mission & Environmental Simulation</h3>
+              <p>Inputs drive live telemetry and predictions</p>
+            </div>
+            <form id="simulationForm" class="sim-form">
+              <label>
+                Mission Profile
+                <select id="missionProfile">
+                  <option value="takeoff">Take-off</option>
+                  <option value="climb">Climb</option>
+                  <option value="cruise" selected>Cruise</option>
+                  <option value="loiter">Loiter / Endurance</option>
+                  <option value="descent">Descent</option>
+                  <option value="transition">Rapid Throttle Transition</option>
+                </select>
+              </label>
+              <label>
+                Altitude <span><output id="altitudeValue">7000</output> m</span>
+                <input id="altitude" type="range" min="0" max="10000" step="100" value="7000" />
+              </label>
+              <label>
+                Ambient Temp <span><output id="temperatureValue">42</output> &deg;C</span>
+                <input id="temperature" type="range" min="-20" max="50" step="1" value="42" />
+              </label>
+              <label>
+                Humidity <span><output id="humidityValue">30</output> %</span>
+                <input id="humidity" type="range" min="0" max="100" step="1" value="30" />
+              </label>
+              <label>
+                Wind <span><output id="windValue">18</output> kt</span>
+                <input id="wind" type="range" min="0" max="70" step="1" value="18" />
+              </label>
+              <label>
+                Throttle <span><output id="throttleValue">82</output> %</span>
+                <input id="throttle" type="range" min="20" max="100" step="1" value="82" />
+              </label>
+              <label>
+                Mission Duration
+                <input id="duration" type="number" min="5" max="720" value="120" />
+              </label>
+              <div class="form-actions">
+                <button class="primary-button" type="submit">Run Simulation</button>
+                <button class="ghost-button" type="button" id="resetSimulation">Reset</button>
+              </div>
+            </form>
+            <div class="quick-profiles" aria-label="Quick mission profiles">
+              <button type="button" data-profile="takeoff">Take-off</button>
+              <button type="button" data-profile="climb">Climb</button>
+              <button class="active" type="button" data-profile="hot-endurance">Hot Endurance</button>
+              <button type="button" data-profile="loiter">Loiter</button>
+              <button type="button" data-profile="descent">Descent</button>
+              <button type="button" data-profile="cold">Cold Weather</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="module-grid">
+          <article class="panel thermal-panel" id="engine-model">
+            <div class="panel-heading compact">
+              <h3>Thermal Model</h3>
+              <p>Physics-inspired heat balance from throttle, fuel flow, altitude, and cooling air</p>
+            </div>
+            <div class="thermal-grid">
+              <div class="thermal-schematic" aria-label="Simulated thermal zones">
+                <div class="thermal-zone combustion">
+                  <span>Combustion Core</span>
+                  <strong id="thermalCombustionTemp">1040 C</strong>
+                </div>
+                <div class="thermal-zone head">
+                  <span>Cylinder Head</span>
+                  <strong id="thermalHeadTemp">182 C</strong>
+                </div>
+                <div class="thermal-zone oil">
+                  <span>Oil Circuit</span>
+                  <strong id="thermalOilTemp">96 C</strong>
+                </div>
+                <div class="thermal-zone cooling">
+                  <span>Cooling Air</span>
+                  <strong id="thermalCoolingTemp">54 C</strong>
+                </div>
+              </div>
+              <div class="thermal-readouts">
+                <div class="cycle-status">
+                  <div>
+                    <span>Current Working Stroke</span>
+                    <strong id="cycleStroke">Combustion / Expansion</strong>
+                  </div>
+                  <div>
+                    <span>Process State</span>
+                    <strong id="cycleState">Power producing</strong>
+                  </div>
+                </div>
+                <div class="thermal-metric">
+                  <span>Heat Generated</span>
+                  <strong><span id="thermalGenerated">92.0</span> kW</strong>
+                </div>
+                <div class="thermal-metric">
+                  <span>Cooling Capacity</span>
+                  <strong><span id="thermalRejected">85.0</span> kW</strong>
+                </div>
+                <div class="thermal-metric">
+                  <span>Net Thermal Balance</span>
+                  <strong><span id="thermalBalance">+7.0</span> kW</strong>
+                </div>
+                <div class="thermal-metric">
+                  <span>Air Density Estimate</span>
+                  <strong><span id="thermalAirDensity">0.73</span> kg/m3</strong>
+                </div>
+                <div class="thermal-metric">
+                  <span>Head-to-Oil Gradient</span>
+                  <strong><span id="thermalGradient">86</span> C</strong>
+                </div>
+                <div class="thermal-metric">
+                  <span>Thermal Stress Index</span>
+                  <strong><span id="thermalStress">72</span>%</strong>
+                </div>
+                <div class="thermal-bars">
+                  <div class="thermal-bar-row">
+                    <span>Generated Heat</span>
+                    <div class="thermal-bar"><i id="thermalBarHeat"></i></div>
+                  </div>
+                  <div class="thermal-bar-row">
+                    <span>Cooling Capacity</span>
+                    <div class="thermal-bar cooling-bar"><i id="thermalBarCooling"></i></div>
+                  </div>
+                  <div class="thermal-bar-row">
+                    <span>Cooling Margin</span>
+                    <div class="thermal-bar margin-bar"><i id="thermalBarMargin"></i></div>
+                  </div>
+                </div>
+                <p class="thermal-equation" id="thermalEquation">Qnet = Qrejected - Qcooling = +7.0 kW</p>
+                <p class="thermal-note" id="heatFlowText">Heat rejection is above cooling capacity; CHT will trend upward in this scenario.</p>
+              </div>
+            </div>
+            <div class="cycle-grid">
+              <div class="cycle-chart-card">
+                <div class="cycle-title">
+                  <h4>Otto-Cycle Working Process</h4>
+                  <p>Pressure-volume trace from simulated engine state</p>
+                </div>
+                <canvas id="cycleChart" width="760" height="320" aria-label="Pressure volume thermodynamic cycle"></canvas>
+              </div>
+              <div class="cycle-readouts">
+                <div class="cycle-metric">
+                  <span>Manifold Pressure</span>
+                  <strong><span id="cycleMap">64</span> kPa</strong>
+                </div>
+                <div class="cycle-metric">
+                  <span>Compression Ratio</span>
+                  <strong><span id="cycleCompressionRatio">8.7</span>:1</strong>
+                </div>
+                <div class="cycle-metric">
+                  <span>Compression Pressure</span>
+                  <strong><span id="cycleCompressionPressure">1.54</span> MPa</strong>
+                </div>
+                <div class="cycle-metric">
+                  <span>Peak Cylinder Pressure</span>
+                  <strong><span id="cyclePeakPressure">5.8</span> MPa</strong>
+                </div>
+                <div class="cycle-metric">
+                  <span>BMEP Estimate</span>
+                  <strong><span id="cycleBmep">0.92</span> MPa</strong>
+                </div>
+                <div class="cycle-metric">
+                  <span>Indicated Efficiency</span>
+                  <strong><span id="cycleEfficiency">31</span>%</strong>
+                </div>
+                <ol class="cycle-steps" aria-label="Four-stroke thermodynamic process">
+                  <li data-cycle-step="intake"><strong>1. Intake</strong><span>Air-fuel charge enters cylinder.</span></li>
+                  <li data-cycle-step="compression"><strong>2. Compression</strong><span>Mixture pressure and temperature rise.</span></li>
+                  <li data-cycle-step="combustion"><strong>3. Combustion</strong><span>Rapid heat addition near top dead center.</span></li>
+                  <li data-cycle-step="expansion"><strong>4. Expansion</strong><span>Hot gas produces shaft work.</span></li>
+                  <li data-cycle-step="exhaust"><strong>5. Exhaust</strong><span>Residual gases reject heat and leave cylinder.</span></li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel architecture-panel" id="digital-twin">
+            <div class="panel-heading compact">
+              <h3>Digital Twin Architecture</h3>
+              <p>Telemetry source can be replaced by live aircraft data later</p>
+            </div>
+            <ol class="flow-diagram" aria-label="Digital twin model pipeline">
+              <li>Physical Engine</li>
+              <li>Sensor Telemetry</li>
+              <li>Data Preprocessing</li>
+              <li>Physics-Based Engine Model</li>
+              <li>Real-Time State Estimation</li>
+              <li>AI/ML Correction</li>
+              <li>Digital Twin State</li>
+            </ol>
+            <div class="capability-grid">
+              <span>Thermodynamic model</span>
+              <span>Performance maps</span>
+              <span>Sensor fusion</span>
+              <span>State estimation</span>
+              <span>Degradation model</span>
+              <span>Continuous synchronization</span>
+            </div>
+          </article>
+
+          <article class="panel fault-panel">
+            <div class="panel-heading compact">
+              <h3>Fault Prediction</h3>
+              <p>Prototype/simulated AI outputs</p>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Condition</th>
+                  <th>Probability</th>
+                  <th>Severity</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="faultTable"></tbody>
+            </table>
+          </article>
+
+          <article class="panel rul-panel">
+            <div class="panel-heading compact">
+              <h3>RUL Estimation</h3>
+              <p>Driven by thermal, vibration, and load stress</p>
+            </div>
+            <div class="rul-stats">
+              <div><strong id="rulValue">120</strong><span>Remaining Useful Life</span></div>
+              <div><strong id="confidenceValue">89%</strong><span>Model Confidence</span></div>
+              <div><strong id="degradationValue">13%</strong><span>Degradation</span></div>
+            </div>
+            <canvas id="degradationChart" width="430" height="150" aria-label="Degradation trend chart"></canvas>
+            <p class="trend-copy" id="degradationTrend">Trend: Slow degradation</p>
+          </article>
+        </section>
+
+        <section class="module-grid two-col" id="history">
+          <article class="panel replay-panel">
+            <div class="panel-heading compact">
+              <h3>Historical Mission Replay</h3>
+              <p>Mission curves and advisory events are simulated</p>
+            </div>
+            <div class="replay-controls">
+              <select id="missionReplaySelect" aria-label="Historical mission">
+                <option value="mission-001">Mission 001 - Hot high-altitude cruise</option>
+                <option value="mission-002">Mission 002 - Loiter endurance</option>
+                <option value="mission-003">Mission 003 - Rapid transition test</option>
+              </select>
+              <button class="primary-button" id="playReplay" type="button">Play</button>
+              <button class="ghost-button" id="pauseReplay" type="button">Pause</button>
+              <button class="ghost-button" id="resetReplay" type="button">Reset</button>
+            </div>
+            <input id="replayTimeline" type="range" min="0" max="100" value="0" aria-label="Replay timeline" />
+            <div class="replay-summary" id="replaySummary"></div>
+          </article>
+
+          <article class="panel research-panel" id="reports">
+            <div class="panel-heading compact">
+              <h3>Research Demonstrator Mode</h3>
+              <p>Not certified flight-critical engine-control software</p>
+            </div>
+            <p>
+              This demonstrator validates digital twin architecture, sensor fusion, anomaly detection,
+              degradation modeling, RUL estimation, mission simulation, and predictive maintenance workflow.
+            </p>
+            <div class="data-architecture">
+              <span>Telemetry Source</span>
+              <span>Data Adapter</span>
+              <span>Normalization</span>
+              <span>Digital Twin Engine</span>
+              <span>AI Analytics</span>
+              <span>Dashboard</span>
+            </div>
+          </article>
+        </section>
+
+        <footer class="footer-bar" id="settings">
+          <span>Real-time Monitoring</span>
+          <span>AI-Powered Insights</span>
+          <span>Mission Reliability</span>
+          <span>Built for a Safer Tomorrow</span>
+          <span>AeroTwin v1.0</span>
+        </footer>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
